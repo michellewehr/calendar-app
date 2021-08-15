@@ -8,7 +8,8 @@ const currentHour = "11";
 const timeEl = document.querySelectorAll(".time");
 //turn timeEl node into an array to check if timeEl is equal to current hour
 const timeElArr = Array.apply(null, timeEl);
-
+//define empty array to push tasks into
+let tasks = [];
 
 //check to see if each timeEl is equal to, <, > and if it is add a class to the input that matches
 timeElArr.forEach(time => {
@@ -22,30 +23,58 @@ timeElArr.forEach(time => {
     }
 });
 
-$(".btn").on("click", function() {
-   $(event.target).closest(".row").find("input[name='task']").value = "hello";
-})
+//when click button- save task
+$(".btn").on("click", saveTask)
 
-// //load tasks 
-// function loadTasks() {
-//     tasks = JSON.parse(localStorage.getItem("tasks"));
+function saveTask() {
+    let taskToSave = {
+        task: $(this).parent().parent().children(".task").val(),
+        time: $(this).parent().parent().children(".time").attr("id")
+    };
 
-//     //if nothing in localStorage push tasks
-//     tasks.push()
-// }
+    tasks = localStorage.getItem('tasks');
 
+    if(tasks === null) {
+        tasks = [];
+        tasks.push(taskToSave);
+        saveTasks();
+    } else {
+        tasks = JSON.parse(tasks);
+        tasks.push(taskToSave);
+        saveTasks();
+    }
+}
 
-//save buttons 
-const saveBtn = document.querySelectorAll(".btn");
-//turn saveBtn node list to array
-const saveBtnArr = Array.apply(null, saveBtn);
-saveBtnArr.forEach(element => {
-    addEventListener("click", function() {
-        if (element === event.target) {
-            let taskToSave = $(element).closest(".row").find("input");
-            console.log(taskToSave);
-            // localStorage.setItem("savedTasks", JSON.stringify(taskToSave));
+//save tasks function 
+function saveTasks() {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+//load tasks
+function loadTasks() {
+    tasks = JSON.parse(localStorage.getItem("tasks"));
+    if(!tasks) {
+        return;
+    }
+    for (let i = 0; i < tasks.length; i++) {
+        if(tasks[i].time === $(".time").attr("id")) {
+            $(".time").parent().children(".task").textContent = tasks[i].task;
         }
-    })
-})
+    }
+    }
+
+    //load tasks
+function loadTasks() {
+    tasks = JSON.parse(localStorage.getItem("tasks"));
+    if(!tasks) {
+        return;
+    }
+    for (let i = 0; i < tasks.length; i++) {
+        if(tasks[i].time === $(".time").attr("id")) {
+            $(".time").parent().children(".task").textContent = tasks[i].task;
+        }
+    }
+    }
+
+loadTasks();
+
 
