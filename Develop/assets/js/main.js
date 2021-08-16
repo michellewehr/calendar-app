@@ -26,19 +26,22 @@ timeElArr.forEach((time) => {
 $(".btn").on("click", saveTask);
 
 function saveTask() {
+  //create taskObj with task, time, currentDay (to ensure tomorrow we have a clean slate)
   let taskObj = {
     task: $(this).parent().children(".task").val(),
     time: $(this).parent().children(".time").attr("id"),
     day: currentDay,
   };
-
+  // get item from local Storage
   tasks = localStorage.getItem("tasks");
-
+  // if local storage is empty, empty tasks array, push task obj to array and save to local storage
   if (tasks === null) {
     tasks = [];
     tasks.push(taskObj);
     saveToLocalStor();
-  } else {
+  }
+  //if local storage has items, parse into an array and push the task object to array
+  else {
     tasks = JSON.parse(tasks);
     tasks.push(taskObj);
     saveToLocalStor(taskObj);
@@ -56,6 +59,7 @@ function loadTasks(tasks) {
   if (!tasks) {
     return;
   }
+
   //get task from each task item in tasks array and get time to know which line to add the task text to
   tasks.forEach((task) => {
     //if task was created yesterday, clear localStorage and all data on page. clear all localStorage because tasks should only be created for that day
