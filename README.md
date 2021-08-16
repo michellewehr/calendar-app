@@ -12,7 +12,7 @@ Simply click the link to deploy the work day planner application.
 
 ## Usage
 
-The purpose of this application is to
+The purpose of this application is to help users plan out their work days. At the top of the application the current day and date will be shown. With time blocks from 9am to 5pm, users are able to click the text areas and type in their list of tasks to complete during different hours in the day. Tasks will be saved when the save button is clicked and will persist through browser refreshes, as they are saved in the localStorage. Time blocks that representing hours passed are have a gray background, the time block representing the current hour is red, and the times that are later in the day are green. Each day the tasks for the previous day will be cleared and users will be given a clean planner to begin their new day.
 
 ## Built with:
 
@@ -26,7 +26,11 @@ The purpose of this application is to
 
 ## This application can be found:
 
-- https://michellewehr.github.io/javascript-quiz/
+https://michellewehr.github.io/calendar-app/
+
+## The github repository for this application can be found:
+
+https://github.com/michellewehr/calendar-app
 
 ## Contribution
 
@@ -34,38 +38,8 @@ Anyone is welcome to contribute to this project. To do so, clone the local repos
 
 ## Sources
 
-UCONN's School of Engineering Coding bootcamp provided the mock-up in which the author based the project off of.
+UCONN's School of Engineering Coding bootcamp provided the mock-up in which the author based the project off of. Starter code was provided by Xandromus. The link to the starter code is: https://github.com/coding-boot-camp/super-disco.
 
 ## Author
 
-Michelle Wehr Napolitano
-
-## Installation
-
-Simply click the link to deploy the website to deploy the quiz.
-
-## Usage
-
-The purpose of this application is to display a timed multiple choice quiz in which the user clicks an answer to be selected, the next question appears and the user is notified if their selection was correct or incorrect. When a user gets a question incorrect, the timer will subtract 10 seconds from the time. The time will be used as the users score. If the time runs out or the users score hits 0 before all the questions in the quiz are displayed, the quiz will end. Users will input their initials at the end of the quiz and the user's initials with their corresponding time/ score will be displayed in order from highest score to lowest on a leaderboard.
-
-## Built with:
-
-- HTML
-- CSS
-- JavaScript
-
-## This application can be found:
-
-- https://michellewehr.github.io/javascript-quiz/
-
-## Contribution
-
-Anyone is welcome to contribute to this project. To do so, clone the local repository to your local workspace.
-
-## Sources
-
-UCONN's School of Engineering Coding bootcamp provided the mock-up in which the author based the project off of.
-
-## Author
-
-Michelle Wehr Napolitano
+Michelle Napolitano Wehr
