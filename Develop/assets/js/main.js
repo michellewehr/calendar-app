@@ -1,9 +1,9 @@
 //get current day and date to show in the header
 const currentDay = moment().format("dddd MMMM Do, YYYY");
-$(".jumbotron").append(currentDay);
+$("#currentDay").text(currentDay);
 // get current hour
-const currentHour = "11";
-// moment().format("HH");
+const currentHour = moment().format("HH");
+//get current day
 // get time from document
 const timeEl = document.querySelectorAll(".time");
 //turn timeEl node into an array to check if timeEl is equal to current hour
@@ -11,14 +11,14 @@ const timeElArr = Array.apply(null, timeEl);
 //define empty array to push tasks into
 let tasks = [];
 
-//check to see if each timeEl is equal to, <, > and if it is add a class to the input that matches
+//check to see if each timeEl is equal to, <, > and if it is add a class to the textarea that matches
 timeElArr.forEach((time) => {
   if (time.dataset.time === currentHour) {
-    $(time).closest(".row").find("input").addClass("present");
+    $(time).closest(".row").find("textarea").addClass("present");
   } else if (time.dataset.time < currentHour) {
-    $(time).closest(".row").find("input").addClass("past");
+    $(time).closest(".row").find("textarea").addClass("past");
   } else {
-    $(time).closest(".row").find("input").addClass("future");
+    $(time).closest(".row").find("textarea").addClass("future");
   }
 });
 
@@ -26,21 +26,22 @@ timeElArr.forEach((time) => {
 $(".btn").on("click", saveTask);
 
 function saveTask() {
-  let taskToSave = {
-    task: $(this).parent().parent().children(".task").val(),
-    time: $(this).parent().parent().children(".time").attr("id"),
+  let taskObj = {
+    task: $(this).parent().children(".task").val(),
+    time: $(this).parent().children(".time").attr("id"),
+    day: currentDay,
   };
 
   tasks = localStorage.getItem("tasks");
 
   if (tasks === null) {
     tasks = [];
-    tasks.push(taskToSave);
+    tasks.push(taskObj);
     saveToLocalStor();
   } else {
     tasks = JSON.parse(tasks);
-    tasks.push(taskToSave);
-    saveToLocalStor(taskToSave);
+    tasks.push(taskObj);
+    saveToLocalStor(taskObj);
   }
 }
 
@@ -49,18 +50,26 @@ function saveToLocalStor() {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
-//load tasks
+//load tasks on refresh or opening of browser
 function loadTasks(tasks) {
   tasks = JSON.parse(localStorage.getItem("tasks"));
   if (!tasks) {
     return;
   }
-
+  //get task from each task item in tasks array and get time to know which line to add the task text to
   tasks.forEach((task) => {
-    $("#" + task.time)
-      .parent()
-      .children(".task")
-      .val(task.task);
+    //if task was created yesterday, clear localStorage and all data on page. clear all localStorage because tasks should only be created for that day
+    if (task.day != currentDay) {
+      localStorage.clear();
+      window.location.reload();
+    }
+    //get time slot for task to be made with id matching task.time and create values of task.task for the textarea
+    else {
+      $("#" + task.time)
+        .parent()
+        .children(".task")
+        .val(task.task);
+    }
   });
 }
 
