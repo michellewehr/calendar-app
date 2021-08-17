@@ -12,22 +12,19 @@ const timeElArr = Array.apply(null, timeEl);
 let tasks = [];
 
 //check to see if each timeEl is equal to, <, > and if it is add a class to the textarea that matches
-timeElArr.forEach((time) => {
-  if (time.dataset.time === currentHour) {
-    $(time).closest(".row").find("textarea").addClass("present");
-  } else if (time.dataset.time < currentHour) {
-    $(time).closest(".row").find("textarea").addClass("past");
-  } else {
-    $(time).closest(".row").find("textarea").addClass("future");
-  }
-});
-//refresh page/ run load tasks functions every time the hour changes, to make sure it doesn't miss a minute, run load tasks every minute
-setInterval(
-  (function () {
-    loadTasks();
-  },
-  60000)
-);
+function checkTime() {
+  timeElArr.forEach((time) => {
+    if (time.dataset.time === currentHour) {
+      $(time).closest(".row").find("textarea").addClass("present");
+    } else if (time.dataset.time < currentHour) {
+      $(time).closest(".row").find("textarea").addClass("past");
+    } else {
+      $(time).closest(".row").find("textarea").addClass("future");
+    }
+    });
+}
+// set interval to run checkTime every minute to ensure the color coding of time blocks are correct
+setInterval(checkTime, 60000);
 
 //when click button- save task
 $(".btn").on("click", saveTask);
@@ -84,4 +81,5 @@ function loadTasks(tasks) {
   });
 }
 
+checkTime();
 loadTasks();
