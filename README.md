@@ -4,7 +4,7 @@
 
 This application is a work day planner.
 
-![image](./develop/assets/images/work-day-scheduler-screenshot.png)
+![image](./develop/assets/images/workDayCalendar.png)
 
 ## Installation
 
