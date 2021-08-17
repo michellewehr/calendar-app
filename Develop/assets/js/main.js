@@ -1,6 +1,6 @@
 //get current day and date to show in the header
 const currentDay = moment().format("dddd MMMM Do, YYYY");
-$("#currentDay").text(currentDay);
+$("#currentDay").html(currentDay);
 // get current hour
 const currentHour = moment().format("HH");
 //get current day
@@ -21,6 +21,13 @@ timeElArr.forEach((time) => {
     $(time).closest(".row").find("textarea").addClass("future");
   }
 });
+//refresh page/ run load tasks functions every time the hour changes, to make sure it doesn't miss a minute, run load tasks every minute
+setInterval(
+  (function () {
+    loadTasks();
+  },
+  60000)
+);
 
 //when click button- save task
 $(".btn").on("click", saveTask);
