@@ -24,7 +24,11 @@ function checkTime() {
     });
 }
 // set interval to run checkTime every minute to ensure the color coding of time blocks are correct
-setInterval(checkTime, 60000);
+function reLoad() {
+  setInterval(function() {
+    window.location.reload(1);
+}, 60000);
+}
 
 //when click button- save task
 $(".btn").on("click", saveTask);
@@ -83,3 +87,4 @@ function loadTasks(tasks) {
 
 checkTime();
 loadTasks();
+reLoad();
